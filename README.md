@@ -1,0 +1,1 @@
+# ce-weekly-scout-api
