@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/run-weekly-scout",
+      "schedule": "0 18 * * MON"
+    }
+  ]
+}
