@@ -125,7 +125,7 @@ Return ONLY valid JSON in this exact format:
       const itemDate = new Date(item.date);
       return itemDate >= startDate && itemDate <= endDate;
     });
-
+console.log("RUNS DB ID:", process.env.NOTION_RUNS_DATABASE_ID);
     const weeklyRun = await notion.pages.create({
       parent: { database_id: process.env.NOTION_RUNS_DATABASE_ID },
       properties: {
