@@ -179,7 +179,9 @@ console.log("RUNS DB ID:", process.env.NOTION_RUNS_DATABASE_ID);
           Summary: {
             rich_text: toRichText(item.summary || "")
           },
-          Category: item.category ? { select: { name: item.category } } : { select: null },
+         Category: item.category
+  ? { select: { name: String(item.category).replaceAll(",", " -").slice(0, 100) } }
+  : { select: null },
           URL: item.url ? { url: item.url } : { url: null },
           "Why It Matters": {
             rich_text: toRichText(item.why_it_matters || "")
