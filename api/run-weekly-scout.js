@@ -1,6 +1,8 @@
 import OpenAI from "openai";
 import { Client } from "@notionhq/client";
 
+const CODE_VERSION = "RUN_WEEKLY_SCOUT_V3";
+
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
@@ -216,14 +218,15 @@ console.log("RUNS DB ID:", process.env.NOTION_RUNS_DATABASE_ID);
       createdItems.push(page.id);
     }
 
-    return res.status(200).json({
-      success: true,
-      date_range: dateRange,
-      weekly_run_id: weeklyRun.id,
-      created_count: createdItems.length,
-      skipped_old_or_undated_count: items.length - filteredItems.length,
-      item_page_ids: createdItems
-    });
+   return res.status(200).json({
+  success: true,
+  code_version: CODE_VERSION,
+  date_range: dateRange,
+  weekly_run_id: weeklyRun.id,
+  created_count: createdItems.length,
+  skipped_old_or_undated_count: items.length - filteredItems.length,
+  item_page_ids: createdItems
+});
   } catch (error) {
     console.error(error);
     return res.status(500).json({
