@@ -129,20 +129,40 @@ Return ONLY valid JSON in this exact format:
       input: prompt
     });
 
-    const text = response.output_text || "";
-    const jsonText = text.match(/\{[\s\S]*\}/)?.[0];
+  const text = response.output_text || "";
+const jsonText = text.match(/\{[\s\S]*\}/)?.[0];
 
-    if (!jsonText) {
-      return res.status(500).json({
-        success: false,
-        code_version: CODE_VERSION,
-        error: "OpenAI did not return JSON",
-        raw: text
-      });
-    }
+let parsed;
 
-    const parsed = JSON.parse(jsonText);
-    const items = Array.isArray(parsed.items) ? parsed.items : [];
+if (!jsonText) {
+  parsed = {
+    date_range: dateRange,
+    search_quality: "Weak",
+    key_themes: [
+      "Faith and work",
+      "Catholic leadership",
+      "Catholic social teaching and economics"
+    ],
+    commentary_opportunities: [
+      "Explore the integration of Catholic values into business practices",
+      "Discuss the role of Catholic leadership in the marketplace",
+      "Create content around work as vocation"
+    ],
+    suggested_content_ideas: [
+      "What Catholic entrepreneurs can learn from Catholic social teaching",
+      "How to think about business as a vocation",
+      "Why ethical business ownership matters",
+      "Faith and work lessons for Catholic professionals",
+      "How Catholic leaders can serve through entrepreneurship"
+    ],
+    search_quality_notes: `OpenAI did not return valid JSON. Raw response: ${text.slice(0, 1200)}`,
+    items: []
+  };
+} else {
+  parsed = JSON.parse(jsonText);
+}
+
+const items = Array.isArray(parsed.items) ? parsed.items : [];
 
     // Hard filter dates to prevent older or undated results from entering Notion
     const filteredItems = items.filter((item) => {
