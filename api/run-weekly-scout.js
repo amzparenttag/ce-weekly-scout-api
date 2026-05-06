@@ -1,4 +1,4 @@
-const CODE_VERSION = "RUN_WEEKLY_SCOUT_TEST_1";
+const CODE_VERSION = "RUN_WEEKLY_SCOUT_TEST_2";
 
 export default async function handler(req, res) {
   return res.status(200).json({
