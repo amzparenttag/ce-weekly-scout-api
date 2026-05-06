@@ -1,7 +1,7 @@
 import OpenAI from "openai";
 import { Client } from "@notionhq/client";
 
-const CODE_VERSION = "RUN_WEEKLY_SCOUT_V3";
+const CODE_VERSION = "RUN_WEEKLY_SCOUT_V4";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 const notion = new Client({ auth: process.env.NOTION_TOKEN });
